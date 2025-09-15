@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming Exam - Start</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="quiz-container">
+        <div class="header">
+            <img src="circuitslibrary_logo.jpg" alt="CircuitsLibrary Logo" class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo" class="logo">
+            <img src="https://images.hindustantimes.com/img/2021/12/20/1600x900/4b9704a0-6192-11ec-9771-37428ae5265c_1640004506171.jpg" alt="NCERT Logo" class="logo">
+        </div>
+        <div class="introduction">
+            <h1>Python Programming Online Examination</h1>
+            <p><strong>Instructions:</strong></p>
+            <ul>
+                <li>This exam consists of <strong>45 multiple-choice questions</strong> across three sections: Easy, Moderate, and Hard.</li>
+                <li>Each question carries <strong>1 mark</strong>. There is no negative marking.</li>
+                <li>You will complete each section on a separate page.</li>
+                <li>Your total score and correct answers will be displayed on the final results page.</li>
+            </ul>
+            <p><strong>Good luck!</strong></p>
+        </div>
+        <form id="start-form">
+            <div id="name-section">
+                <label for="student-name">Student Name:</label>
+                <input type="text" id="student-name" placeholder="Enter your full name" required>
+            </div>
+            <button type="submit" id="start-quiz-btn">Start Easy Quiz</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('start-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const studentName = document.getElementById('student-name').value.trim();
+            if (studentName === "") {
+                alert("Please enter your name to start the quiz.");
+                return;
+            }
+            localStorage.setItem('studentName', studentName);
+            localStorage.setItem('quizAnswers', JSON.stringify({}));
+            window.location.href = 'easy_quiz.html';
+        });
+    </script>
+</body>
+</html>

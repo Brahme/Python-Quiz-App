@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming Exam - Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="quiz-container">
+        <div class="header">
+            <img src="circuitslibrary_logo.jpg" alt="CircuitsLibrary Logo" class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo" class="logo">
+            <img src="https://ncert.nic.in/images/logo.png" alt="NCERT Logo" class="logo">
+        </div>
+        <div class="introduction">
+            <h1 id="results-title">Quiz Results</h1>
+            <div id="student-score"></div>
+        </div>
+        <div id="all-questions-results">
+        </div>
+        <button id="restart-quiz-btn" onclick="window.location.href='index.html'">Restart Quiz</button>
+    </div>
+    <script>
+        const allQuizData = [
+            { id: "e1", category: "Easy", question: "Which of the following is **not** a keyword in Python?", options: ["eval", "assert", "nonlocal", "pass"], answer: "eval" },
+            { id: "e2", category: "Easy", question: "Which of the following is a valid identifier (variable name) in Python?", options: ["1_variable", "variable-1", "_variable1", "global"], answer: "_variable1" },
+            { id: "e3", category: "Easy", question: "What is the output of `print(10 // 3, 10 % 3)`?", options: ["3.33 1", "3 1", "3.0 1", "3 2"], answer: "3 1" },
+            { id: "e4", category: "Easy", question: "What will be the output of `print(bool(0), bool('False'), bool([]))`?", options: ["True True True", "False True False", "False False False", "True False True"], answer: "False True False" },
+            { id: "e5", category: "Easy", question: "What is the value of the expression `10 + 2 * 3`?", options: ["36", "16", "26", "12"], answer: "16" },
+            { id: "e6", category: "Easy", question: "Which statement correctly takes a string input from the user?", options: ["name = str(input(\"Enter name: \"))", "name = input(\"Enter name: \")", "name = read(\"Enter name: \")", "name = string.input()"], answer: "name = input(\"Enter name: \")" },
+            { id: "e7", category: "Easy", question: "What is the output of `print(\"Hello\", \"World\", sep='-')`?", options: ["Hello World", "Hello-World", "Hello- World", "HelloWorld"], answer: "Hello-World" },
+            { id: "e8", category: "Easy", question: "What keyword is used to define a function in Python?", options: ["function", "def", "fun", "define"], answer: "def" },
+            { id: "e9", category: "Easy", question: "Which statement is true about Python lists?", options: ["They are immutable", "They can only store elements of the same data type", "They are mutable", "They are accessed by key-value pairs"], answer: "They are mutable" },
+            { id: "e10", category: "Easy", question: "What is a key characteristic of tuples?", options: ["They are mutable", "They are immutable", "They are unsorted", "They must contain integers"], answer: "They are immutable" },
+            { id: "e11", category: "Easy", question: "Which of the following creates an empty dictionary?", options: ["d = []", "d = ()", "d = {}", "d = dict[]"], answer: "d = {}" },
+            { id: "e12", category: "Easy", question: "A stack follows the _________ principle.", options: ["FIFO (First-In-First-Out)", "LIFO (Last-In-First-Out)", "LILO (Last-In-Last-Out)", "Random Access"], answer: "LIFO (Last-In-First-Out)" },
+            { id: "e13", category: "Easy", question: "What is the output of `s = \"Python\"; print(s[0])`?", options: ["P", "n", "y", "Error"], answer: "P" },
+            { id: "e14", category: "Easy", question: "What is the result of the expression `[1, 2] + [3, 4]`?", options: ["[[1, 2], [3, 4]]", "[1, 2, 3, 4]", "[4, 6]", "Error"], answer: "[1, 2, 3, 4]" },
+            { id: "e15", category: "Easy", question: "What does the `pass` statement do?", options: ["Exits a loop", "Skips an iteration", "Acts as a placeholder for future code", "Raises an error"], answer: "Acts as a placeholder for future code" },
+            { id: "m1", category: "Moderate", question: "What is the data type of the object created by `x = 12,`?", options: ["int", "list", "tuple", "SyntaxError"], answer: "tuple" },
+            { id: "m2", category: "Moderate", question: "What is the value of `x` after the operations: `x = 5; x **= 2`?", options: ["10", "25", "7", "3"], answer: "25" },
+            { id: "m3", category: "Moderate", question: "What is the output of the code: <pre>x = 10\nif x > 10:\n    print(\"A\")\nelif x == 10:\n    print(\"B\")\nelse:\n    print(\"C\")</pre>", options: ["A", "B", "C", "No output"], answer: "B" },
+            { id: "m4", category: "Moderate", question: "How many times will the loop `for i in range(1, 10, 2): print(i)` execute?", options: ["10", "9", "5", "4"], answer: "5" },
+            { id: "m5", category: "Moderate", question: "What is the output of this code: <pre>x = 50\ndef func():\n    x = 2\n    print(x)\nfunc()\nprint(x)</pre>", options: ["2 50", "50 2", "2 2", "50 50"], answer: "2 50" },
+            { id: "m6", category: "Moderate", question: "A function call like `test(b=20, a=10)` is an example of using...?", options: ["Positional arguments", "Default arguments", "Keyword arguments", "Variable-length arguments"], answer: "Keyword arguments" },
+            { id: "m7", category: "Moderate", question: "What is the output of `s = \"Hello World\"; print(s[2:7])`?", options: ["llo W", "lloWo", "llo W", "lo Wo"], answer: "llo W" },
+            { id: "m8", category: "Moderate", question: "Which method removes the last element from a list and returns it?", options: ["remove()", "delete()", "pop()", "clear()"], answer: "pop()" },
+            { id: "m9", category: "Moderate", question: "What is the output of `d = {'a': 1, 'b': 2}; print(d.get('c', 3))`?", options: ["1", "None", "3", "KeyError"], answer: "3" },
+            { id: "m10", category: "Moderate", question: "Which dictionary method returns its key-value pairs as a sequence of tuples?", options: ["keys()", "values()", "elements()", "items()"], answer: "items()" },
+            { id: "m11", category: "Moderate", question: "What is the primary advantage of using the `with open(...) as f:` statement?", options: ["The file is opened in read mode", "The file is automatically closed after the block is executed", "The file is opened in binary mode", "It ensures the file exists"], answer: "The file is automatically closed after the block is executed" },
+            { id: "m12", category: "Moderate", question: "Which searching algorithm requires the data to be sorted beforehand?", options: ["Linear Search", "Binary Search", "Sequential Search", "All of the above"], answer: "Binary Search" },
+            { id: "m13", category: "Moderate", question: "Which block of code is always executed, regardless of whether an exception occurred?", options: ["try", "except", "else", "finally"], answer: "finally" },
+            { id: "m14", category: "Moderate", question: "To modify a global variable inside a function, which keyword must be used?", options: ["global", "nonlocal", "var", "public"], answer: "global" },
+            { id: "m15", category: "Moderate", question: "What is the output of `my_list = [1, 2, 3]; my_list.append([4, 5]); print(len(my_list))`?", options: ["3", "4", "5", "6"], answer: "4" },
+            { id: "h1", category: "Hard", question: "What is the output of `print(int(\"10.5\"))`?", options: ["10.5", "10", "11", "ValueError"], answer: "ValueError" },
+            { id: "h2", category: "Hard", question: "Which operator has the highest precedence in the expression `10 > 5 + 3 and 4 // 2`?", options: ["//", "+", ">", "and"], answer: "+" },
+            { id: "h3", category: "Hard", question: "What is the value of the expression `10 + 2 * 3 ** 2`?", options: ["108", "36", "28", "144"], answer: "28" },
+            { id: "h4", category: "Hard", question: "What is the output of this code: <pre>i = 0\nwhile i < 5:\n    i += 1\n    if i == 3:\n        continue\n    print(i, end=' ')</pre>", options: ["1 2 4 5", "1 2 3 4 5", "1 2", "0 1 2 4"], answer: "1 2 4 5" },
+            { id: "h5", category: "Hard", question: "What is the output of the nested loop: <pre>for i in range(2):\n    for j in range(2):\n        print(f\"{i}{j}\", end=\" \")</pre>", options: ["00 01 10 11", "00 11", "01 10", "00 10"], answer: "00 01 10 11" },
+            { id: "h6", category: "Hard", question: "What is the output of this code: <pre>def my_func(a, b=10):\n    return a + b\nprint(my_func(5))</pre>", options: ["5", "10", "15", "Error"], answer: "15" },
+            { id: "h7", category: "Hard", question: "What happens when you execute `t = (1, 2, 3); t[0] = 4`?", options: ["The tuple becomes (4, 2, 3)", "A TypeError is raised", "A ValueError is raised", "A new tuple is created"], answer: "A TypeError is raised" },
+            { id: "h8", category: "Hard", question: "Which mode opens a file for writing, but only if it does not already exist?", options: ["'w'", "'a'", "'x'", "'w+'"], answer: "'x'" },
+            { id: "h9", category: "Hard", question: "Which function reads a single line from a file, including the newline character?", options: ["read()", "readlines()", "readline()", "read_line()"], answer: "readline()" },
+            { id: "h10", category: "Hard", question: "A function that calls itself is known as a(n) _________ function.", options: ["iterative", "recursive", "lambda", "nested"], answer: "recursive" },
+            { id: "h11", category: "Hard", question: "What is the base case in a standard recursive function to calculate the factorial of `n`?", options: ["n > 1", "n == 0 or n == 1", "n < 0", "n = 2"], answer: "n == 0 or n == 1" },
+            { id: "h12", category: "Hard", question: "If a stack is implemented using a list, which methods correspond to the PUSH and POP operations?", options: ["insert() and remove()", "append() and pop()", "add() and get()", "push() and pop()"], answer: "append() and pop()" },
+            { id: "h13", category: "Hard", question: "In Bubble Sort, what is the fundamental operation performed in each pass?", options: ["The largest element is placed at its correct position", "The smallest element is placed at its correct position", "Adjacent elements are compared and swapped if they are in the wrong order", "The list is divided into two halves"], answer: "Adjacent elements are compared and swapped if they are in the wrong order" },
+            { id: "h14", category: "Hard", question: "Which sorting algorithm repeatedly finds the minimum element from the unsorted part and puts it at the beginning?", options: ["Bubble Sort", "Insertion Sort", "Selection Sort", "Merge Sort"], answer: "Selection Sort" },
+            { id: "h15", category: "Hard", question: "What type of error is raised by the code `x = int('abc')`?", options: ["SyntaxError", "TypeError", "ValueError", "NameError"], answer: "ValueError" }
+        ];
+
+        function displayResults() {
+            const studentName = localStorage.getItem('studentName') || 'Student';
+            const savedAnswers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
+            const resultsTitle = document.getElementById('results-title');
+            const studentScoreDisplay = document.getElementById('student-score');
+            const allQuestionsResultsDiv = document.getElementById('all-questions-results');
+            let numCorrect = 0;
+            let output = '';
+            let currentCategory = '';
+            let questionNumberOverall = 0;
+
+            allQuizData.forEach((currentQuestion) => {
+                if (currentQuestion.category !== currentCategory) {
+                    currentCategory = currentQuestion.category;
+                    output += `<div class="section-title">${currentCategory} Section Review</div>`;
+                }
+                questionNumberOverall++;
+                const userAnswer = savedAnswers[currentQuestion.id];
+                const isCorrect = (userAnswer === currentQuestion.answer);
+                if (isCorrect) {
+                    numCorrect++;
+                }
+                let optionsOutput = '';
+                currentQuestion.options.forEach((option) => {
+                    let optionClass = '';
+                    if (option === currentQuestion.answer) {
+                        optionClass = 'correct';
+                    } else if (option === userAnswer && !isCorrect) {
+                        optionClass = 'incorrect';
+                    }
+                    optionsOutput += `<div><label class="${optionClass}">${option}</label></div>`;
+                });
+                output += `
+                    <div class="question-block">
+                        <p>${questionNumberOverall}. ${currentQuestion.question}</p>
+                        <div class="options">${optionsOutput}</div>
+                    </div>
+                `;
+            });
+            resultsTitle.textContent = `Results for ${studentName}`;
+            studentScoreDisplay.innerHTML = `You scored <strong>${numCorrect}</strong> out of <strong>${allQuizData.length}</strong>.`;
+            allQuestionsResultsDiv.innerHTML = output;
+        }
+
+        displayResults();
+    </script>
+</body>
+</html>

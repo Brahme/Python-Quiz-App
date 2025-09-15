@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming Exam - Moderate Section</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="quiz-container">
+        <div class="header">
+            <img src="circuitslibrary_logo.jpg" alt="CircuitsLibrary Logo" class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo" class="logo">
+            <img src="https://ncert.nic.in/images/logo.png" alt="NCERT Logo" class="logo">
+        </div>
+        <div class="introduction">
+            <h1>Moderate Section (15 Questions)</h1>
+        </div>
+        <form id="quiz-form">
+            <button type="submit" id="next-btn">Next: Hard Quiz</button>
+        </form>
+    </div>
+    <script>
+        const quizDataModerate = [
+            { id: "m1", question: "What is the data type of the object created by `x = 12,`?", options: ["int", "list", "tuple", "SyntaxError"], answer: "tuple" },
+            { id: "m2", question: "What is the value of `x` after the operations: `x = 5; x **= 2`?", options: ["10", "25", "7", "3"], answer: "25" },
+            { id: "m3", question: "What is the output of the code: <pre>x = 10\nif x > 10:\n    print(\"A\")\nelif x == 10:\n    print(\"B\")\nelse:\n    print(\"C\")</pre>", options: ["A", "B", "C", "No output"], answer: "B" },
+            { id: "m4", question: "How many times will the loop `for i in range(1, 10, 2): print(i)` execute?", options: ["10", "9", "5", "4"], answer: "5" },
+            { id: "m5", question: "What is the output of this code: <pre>x = 50\ndef func():\n    x = 2\n    print(x)\nfunc()\nprint(x)</pre>", options: ["2 50", "50 2", "2 2", "50 50"], answer: "2 50" },
+            { id: "m6", question: "A function call like `test(b=20, a=10)` is an example of using...?", options: ["Positional arguments", "Default arguments", "Keyword arguments", "Variable-length arguments"], answer: "Keyword arguments" },
+            { id: "m7", question: "What is the output of `s = \"Hello World\"; print(s[2:7])`?", options: ["llo W", "lloWo", "llo W", "lo Wo"], answer: "llo W" },
+            { id: "m8", question: "Which method removes the last element from a list and returns it?", options: ["remove()", "delete()", "pop()", "clear()"], answer: "pop()" },
+            { id: "m9", question: "What is the output of `d = {'a': 1, 'b': 2}; print(d.get('c', 3))`?", options: ["1", "None", "3", "KeyError"], answer: "3" },
+            { id: "m10", question: "Which dictionary method returns its key-value pairs as a sequence of tuples?", options: ["keys()", "values()", "elements()", "items()"], answer: "items()" },
+            { id: "m11", question: "What is the primary advantage of using the `with open(...) as f:` statement?", options: ["The file is opened in read mode", "The file is automatically closed after the block is executed", "The file is opened in binary mode", "It ensures the file exists"], answer: "The file is automatically closed after the block is executed" },
+            { id: "m12", question: "Which searching algorithm requires the data to be sorted beforehand?", options: ["Linear Search", "Binary Search", "Sequential Search", "All of the above"], answer: "Binary Search" },
+            { id: "m13", question: "Which block of code is always executed, regardless of whether an exception occurred?", options: ["try", "except", "else", "finally"], answer: "finally" },
+            { id: "m14", question: "To modify a global variable inside a function, which keyword must be used?", options: ["global", "nonlocal", "var", "public"], answer: "global" },
+            { id: "m15", question: "What is the output of `my_list = [1, 2, 3]; my_list.append([4, 5]); print(len(my_list))`?", options: ["3", "4", "5", "6"], answer: "4" }
+        ];
+        const quizForm = document.getElementById('quiz-form');
+        function buildQuiz() {
+            let output = '';
+            quizDataModerate.forEach((currentQuestion, index) => {
+                let optionsOutput = '';
+                currentQuestion.options.forEach((option, optionIndex) => {
+                    optionsOutput += `
+                        <div>
+                            <input type="radio" name="question${currentQuestion.id}" id="q${currentQuestion.id}o${optionIndex}" value="${option}">
+                            <label for="q${currentQuestion.id}o${optionIndex}">${option}</label>
+                        </div>
+                    `;
+                });
+                output += `
+                    <div class="question-block">
+                        <p>${index + 16}. ${currentQuestion.question}</p>
+                        <div class="options">${optionsOutput}</div>
+                    </div>
+                `;
+            });
+            quizForm.insertAdjacentHTML('afterbegin', output);
+        }
+        function saveAnswersAndNavigate(event) {
+            event.preventDefault();
+            let savedAnswers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
+            quizDataModerate.forEach((currentQuestion) => {
+                const selector = `input[name=question${currentQuestion.id}]:checked`;
+                const userAnswerNode = quizForm.querySelector(selector);
+                const userAnswer = userAnswerNode ? userAnswerNode.value : undefined;
+                savedAnswers[currentQuestion.id] = userAnswer;
+            });
+            localStorage.setItem('quizAnswers', JSON.stringify(savedAnswers));
+            window.location.href = 'hard_quiz.html';
+        }
+        buildQuiz();
+        quizForm.addEventListener('submit', saveAnswersAndNavigate);
+    </script>
+</body>
+</html>

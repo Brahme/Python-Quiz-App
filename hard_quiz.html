@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming Exam - Hard Section</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="quiz-container">
+        <div class="header">
+            <img src="circuitslibrary_logo.jpg" alt="CircuitsLibrary Logo" class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo" class="logo">
+            <img src="https://ncert.nic.in/images/logo.png" alt="NCERT Logo" class="logo">
+        </div>
+        <div class="introduction">
+            <h1>Hard Section (15 Questions)</h1>
+        </div>
+        <form id="quiz-form">
+            <button type="submit" id="submit-all-btn">Submit Exam & View Results</button>
+        </form>
+    </div>
+    <script>
+        const quizDataHard = [
+            { id: "h1", question: "What is the output of `print(int(\"10.5\"))`?", options: ["10.5", "10", "11", "ValueError"], answer: "ValueError" },
+            { id: "h2", question: "Which operator has the highest precedence in the expression `10 > 5 + 3 and 4 // 2`?", options: ["//", "+", ">", "and"], answer: "+" },
+            { id: "h3", question: "What is the value of the expression `10 + 2 * 3 ** 2`?", options: ["108", "36", "28", "144"], answer: "28" },
+            { id: "h4", question: "What is the output of this code: <pre>i = 0\nwhile i < 5:\n    i += 1\n    if i == 3:\n        continue\n    print(i, end=' ')</pre>", options: ["1 2 4 5", "1 2 3 4 5", "1 2", "0 1 2 4"], answer: "1 2 4 5" },
+            { id: "h5", question: "What is the output of the nested loop: <pre>for i in range(2):\n    for j in range(2):\n        print(f\"{i}{j}\", end=\" \")</pre>", options: ["00 01 10 11", "00 11", "01 10", "00 10"], answer: "00 01 10 11" },
+            { id: "h6", question: "What is the output of this code: <pre>def my_func(a, b=10):\n    return a + b\nprint(my_func(5))</pre>", options: ["5", "10", "15", "Error"], answer: "15" },
+            { id: "h7", question: "What happens when you execute `t = (1, 2, 3); t[0] = 4`?", options: ["The tuple becomes (4, 2, 3)", "A TypeError is raised", "A ValueError is raised", "A new tuple is created"], answer: "A TypeError is raised" },
+            { id: "h8", question: "Which mode opens a file for writing, but only if it does not already exist?", options: ["'w'", "'a'", "'x'", "'w+'"], answer: "'x'" },
+            { id: "h9", question: "Which function reads a single line from a file, including the newline character?", options: ["read()", "readlines()", "readline()", "read_line()"], answer: "readline()" },
+            { id: "h10", question: "A function that calls itself is known as a(n) _________ function.", options: ["iterative", "recursive", "lambda", "nested"], answer: "recursive" },
+            { id: "h11", question: "What is the base case in a standard recursive function to calculate the factorial of `n`?", options: ["n > 1", "n == 0 or n == 1", "n < 0", "n = 2"], answer: "n == 0 or n == 1" },
+            { id: "h12", question: "If a stack is implemented using a list, which methods correspond to the PUSH and POP operations?", options: ["insert() and remove()", "append() and pop()", "add() and get()", "push() and pop()"], answer: "append() and pop()" },
+            { id: "h13", question: "In Bubble Sort, what is the fundamental operation performed in each pass?", options: ["The largest element is placed at its correct position", "The smallest element is placed at its correct position", "Adjacent elements are compared and swapped if they are in the wrong order", "The list is divided into two halves"], answer: "Adjacent elements are compared and swapped if they are in the wrong order" },
+            { id: "h14", question: "Which sorting algorithm repeatedly finds the minimum element from the unsorted part and puts it at the beginning?", options: ["Bubble Sort", "Insertion Sort", "Selection Sort", "Merge Sort"], answer: "Selection Sort" },
+            { id: "h15", question: "What type of error is raised by the code `x = int('abc')`?", options: ["SyntaxError", "TypeError", "ValueError", "NameError"], answer: "ValueError" }
+        ];
+        const quizForm = document.getElementById('quiz-form');
+        function buildQuiz() {
+            let output = '';
+            quizDataHard.forEach((currentQuestion, index) => {
+                let optionsOutput = '';
+                currentQuestion.options.forEach((option, optionIndex) => {
+                    optionsOutput += `
+                        <div>
+                            <input type="radio" name="question${currentQuestion.id}" id="q${currentQuestion.id}o${optionIndex}" value="${option}">
+                            <label for="q${currentQuestion.id}o${optionIndex}">${option}</label>
+                        </div>
+                    `;
+                });
+                output += `
+                    <div class="question-block">
+                        <p>${index + 31}. ${currentQuestion.question}</p>
+                        <div class="options">${optionsOutput}</div>
+                    </div>
+                `;
+            });
+            quizForm.insertAdjacentHTML('afterbegin', output);
+        }
+        function saveAnswersAndNavigate(event) {
+            event.preventDefault();
+            let savedAnswers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
+            quizDataHard.forEach((currentQuestion) => {
+                const selector = `input[name=question${currentQuestion.id}]:checked`;
+                const userAnswerNode = quizForm.querySelector(selector);
+                const userAnswer = userAnswerNode ? userAnswerNode.value : undefined;
+                savedAnswers[currentQuestion.id] = userAnswer;
+            });
+            localStorage.setItem('quizAnswers', JSON.stringify(savedAnswers));
+            window.location.href = 'results.html';
+        }
+        buildQuiz();
+        quizForm.addEventListener('submit', saveAnswersAndNavigate);
+    </script>
+</body>
+</html>

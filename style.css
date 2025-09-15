@@ -1,0 +1,223 @@
+/* --- Import Google Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* --- CSS Variables for Easy Customization --- */
+:root {
+    --primary-color: #4a90e2; /* A modern, friendly blue */
+    --primary-hover-color: #357abd;
+    --background-color: #f7f9fc;
+    --container-bg-color: #ffffff;
+    --text-color: #333;
+    --heading-color: #1a3b5d;
+    --border-color: #e0e0e0;
+    --correct-bg: #e7f4e8;
+    --correct-border: #a8d5ab;
+    --correct-text: #2b6b2e;
+    --incorrect-bg: #fdecea;
+    --incorrect-border: #f5b0b0;
+    --incorrect-text: #a92525;
+    --font-main: 'Poppins', sans-serif;
+}
+
+/* --- General Body and Layout Styles --- */
+body {
+    font-family: var(--font-main);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+#quiz-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: var(--container-bg-color);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+}
+
+/* --- Header and Logo --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 20px;
+}
+.logo {
+    max-height: 50px;
+    max-width: 150px;
+    object-fit: contain;
+}
+
+/* --- Typography and Introduction --- */
+.introduction h1 {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 15px;
+}
+
+/* --- Name Input Section --- */
+#name-section {
+    margin-bottom: 30px;
+}
+#name-section label {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--heading-color);
+}
+#student-name {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1em;
+    font-family: var(--font-main);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-top: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+#student-name:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+/* --- Quiz Question Styles --- */
+.section-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+.question-block p {
+    font-size: 1.15em;
+    font-weight: 600;
+}
+.question-block pre {
+    background-color: #f3f4f6;
+    padding: 15px;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    font-family: "SF Mono", "Fira Code", "Courier New", monospace;
+    font-size: 0.95em;
+    border: 1px solid var(--border-color);
+}
+
+/* --- Radio Button Options --- */
+.options div {
+    margin-bottom: 12px;
+}
+.options label {
+    display: block;
+    padding: 15px 20px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.options label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    border-color: var(--primary-color);
+}
+input[type="radio"] {
+    display: none;
+}
+input[type="radio"]:checked + label {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+}
+
+/* --- Answer Highlighting --- */
+.options label.correct {
+    background-color: var(--correct-bg);
+    border-color: var(--correct-border);
+    color: var(--correct-text);
+    font-weight: 600;
+}
+.options label.incorrect {
+    background-color: var(--incorrect-bg);
+    border-color: var(--incorrect-border);
+    color: var(--incorrect-text);
+    font-weight: 600;
+}
+
+/* --- Button Styles --- */
+button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    font-weight: 600;
+    font-family: var(--font-main);
+    color: #fff;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+button:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+#submit-all-btn, #next-btn {
+    background-color: #28a745;
+}
+#submit-all-btn:hover, #next-btn:hover {
+    background-color: #218838;
+}
+
+#restart-quiz-btn {
+    background-color: #dc3545;
+}
+#restart-quiz-btn:hover {
+    background-color: #c82333;
+}
+
+/* --- Results Display --- */
+#student-score {
+    font-size: 1.5em;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #e9f2fe;
+    border-radius: 10px;
+    color: var(--heading-color);
+    border: 1px solid var(--primary-color);
+}
+#student-score strong {
+    color: var(--primary-color);
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    #quiz-container {
+        padding: 20px;
+    }
+    .header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .introduction h1 {
+        font-size: 1.6em;
+    }
+    #student-score {
+        font-size: 1.2em;
+    }
+}
